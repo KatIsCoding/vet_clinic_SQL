@@ -11,3 +11,7 @@ CREATE TABLE animals (
     weight_kg decimal NOT NULL,
     PRIMARY KEY (id)
 );
+
+/* Second Excercise Queries */
+
+ALTER TABLE animals ADD species text;
