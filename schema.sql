@@ -9,6 +9,9 @@ CREATE TABLE animals (
     escape_attempts integer NOT NULL,
     neutered boolean NOT NULL,
     weight_kg decimal NOT NULL,
-    species text,
     PRIMARY KEY (id)
 );
+
+/* Second Excercise Queries */
+
+ALTER TABLE animals ADD species text;
