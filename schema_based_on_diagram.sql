@@ -7,12 +7,6 @@ CREATE TABLE invoices (
   PRIMARY KEY (id)
 );
 
-ALTER TABLE invoices 
-ADD CONSTRAINT medical_pkey 
-FOREIGN KEY (medical_history_id) 
-REFERENCES medical_histories (id);
-
-
 CREATE TABLE medical_histories (
   id SERIAL,
   admitted_at timestamp not null,
@@ -20,11 +14,6 @@ CREATE TABLE medical_histories (
   status varchar(255) not null,
   PRIMARY KEY (id)
 );
-
-ALTER TABLE medical_histories
-ADD CONSTRAINT patient_pkey
-FOREIGN KEY (patient_id)
-REFERENCES patients (id);
 
 CREATE TABLE patients (
   id SERIAL,
@@ -49,11 +38,27 @@ CREATE TABLE invoice_items (
   PRIMARY KEY (id)
 );
 
+
+
+-- Reference to medical_histories.id from invoices.medical_history_id
+ALTER TABLE invoices 
+ADD CONSTRAINT medical_pkey 
+FOREIGN KEY (medical_history_id) 
+REFERENCES medical_histories (id);
+
+-- Reference to patients.id from medical_histories.patient_id
+ALTER TABLE medical_histories
+ADD CONSTRAINT patient_pkey
+FOREIGN KEY (patient_id)
+REFERENCES patients (id);
+
+-- Reference to invoices.id from invoice_items.invoice_id
 ALTER TABLE invoice_items
 ADD CONSTRAINT invoice_id_pkey
 FOREIGN KEY (invoice_id)
 REFERENCES invoices (id);
 
+-- Reference to treatments.id from invoice_items.treatment_id
 ALTER TABLE invoice_items
 ADD CONSTRAINT treatment_id_pkey
 FOREIGN KEY (treatment_id)
