@@ -32,3 +32,31 @@ CREATE TABLE patients (
   PRIMARY KEY (id)
 );
 
+CREATE TABLE treatments (
+  id SERIAL,
+  type varchar(255) not null,
+  name varchar(255) not null,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE invoice_items (
+  id SERIAL,
+  unit_price decimal not null,
+  quantity integer not null,
+  total_price decimal not null,
+  invoice_id integer not null,
+  treatment_id integer not null,
+  PRIMARY KEY (id)
+);
+
+ALTER TABLE invoice_items
+ADD CONSTRAINT invoice_id_pkey
+FOREIGN KEY (invoice_id)
+REFERENCES invoices (id);
+
+ALTER TABLE invoice_items
+ADD CONSTRAINT treatment_id_pkey
+FOREIGN KEY (treatment_id)
+REFERENCES treatments (id);
+
+
